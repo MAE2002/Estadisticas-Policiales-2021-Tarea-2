@@ -1,0 +1,77 @@
+---
+title: "Estadisticas Policiales 2021"
+author: "Mariano Arroyo Elizondo"
+date: '2022-06-18'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r lectura-paquetes, message = FALSE}
+install.packages("DT")
+
+library("DT")
+
+install.packages("ggplot2")
+
+library("ggplot2")
+
+install.packages("plotly")
+
+library("plotly")
+
+install.packages("dplyr")
+
+library("dplyr")
+
+install.packages("leaflet")
+
+library("leaflet")
+
+install.packages("sf")
+
+library("sf")
+
+install.packages("readxl")
+
+library("readxl")
+
+install.packages("tidyverse")
+
+library("tidyverse")
+```
+
+```{r lectura-datos}
+estadisticas_policiales <-
+  readxl::read_excel("C:/Users/PC/estadisticaspoliciales2021.xls")
+```
+
+```{r tabla}
+estadisticas_policiales %>%
+  dplyr::select(Delito,
+                Fecha,
+                Victima,
+                Edad,
+                Genero,
+                Provincia,
+                Canton) %>%
+  datatable(
+    colnames = c(
+      "Delito",
+      "Fecha",
+      "Victima",
+      "Edad",
+      "Género",
+      "Provincia",
+      "Cantón"
+    ),
+    options = list(
+      pageLength = 10,
+      language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')
+    )
+  )
+
+```
